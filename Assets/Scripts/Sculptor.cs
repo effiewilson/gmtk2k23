@@ -32,12 +32,7 @@ namespace DefaultNamespace
         // [Button]
         public void Relocate()
         {
-            // Vector3 oldRota?
-            
-            // Quaternion.
-            // parent.transform.rotation = Quaternion.Euler(new Vector3(parent.transform.rotation.x, Random.rotation.y, parent.transform.rotation.z));
-            parent.transform.rotation = Quaternion.Euler(new Vector3(Random.Range(-angleRange,angleRange), Random.Range(0,360), 0));
-            // parent.transform.rotation = new Vector3(parent.transform.rotation.x, parent.transform.rotation.y, parent.transform.rotation.z));
+            // parent.transform.rotation = Quaternion.Euler(new Vector3(Random.Range(-angleRange,angleRange), Random.Range(0,360), 0));
         }
         
         public void DrawStraightLine(Vector3 sp, Vector3 ep)
