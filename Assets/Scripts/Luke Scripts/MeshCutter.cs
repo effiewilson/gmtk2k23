@@ -6,7 +6,7 @@ using UnityEngine;
 public class CuttableMesh : MonoBehaviour
 {
     private Mesh _mesh;
-    public float SmashFraction = 0.5f;
+    public float SmashFraction = 0.75f;
 
     private bool _finished = false;
 
@@ -21,27 +21,28 @@ public class CuttableMesh : MonoBehaviour
 
     private void Update()
     {
-        if (volume.FractionalVolume < SmashFraction)
+        if (!_finished && volume.FractionalVolume < SmashFraction)
         {
-            SmashRemains();
+            StartCoroutine(SmashRemains());
         }
     }
 
-    private void SmashRemains()
+    private IEnumerator SmashRemains()
     {
         _finished = true;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             Vector3 randomOffset = transform.position + new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
             Vector3 randomOrientation = new Vector3(Random.Range(-20, 20f), Random.Range(-60, 60f), Random.Range(-120, 120));
             CutMesh(new Plane(randomOrientation, randomOffset), randomOffset);
+            yield return new WaitForFixedUpdate();
         }
     }
 
     public void RandomCut()
     {
-        Vector3 randomOffset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
-        Vector3 randomOrientation = new Vector3(Random.Range(-20, 20f), Random.Range(-60, 60f), Random.Range(-120, 120));
+        Vector3 randomOffset = transform.position + new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
+        Vector3 randomOrientation = new Vector3(Random.Range(89f, 91f), Random.Range(-80f, 100f), Random.Range(-1, 1));
 
         StartCoroutine(DoDelayedCut(randomOffset, new Plane(randomOrientation, randomOffset)));
     }
@@ -256,13 +257,20 @@ public class CuttableMesh : MonoBehaviour
         }
         else
         {
+            transform.DetachChildren();
             MakeDiscardMesh(keep, -dirPush);
+            GetComponent<MeshFilter>().mesh = null;
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<MeshCollider>().enabled = false;
+            StartCoroutine(DestroyAfterSeconds(gameObject, 5f));
         }
         MakeDiscardMesh(chuck, dirPush);
     }
 
     private void MakeDiscardMesh(Mesh mesh, Vector3 pushAway)
     {
+        if (_finished) pushAway *= 2;
+
         //The discarded mesh
         GameObject chuckObj = new GameObject("Superfluous Material");
 
@@ -281,5 +289,18 @@ public class CuttableMesh : MonoBehaviour
         collider.convex = true;
         var rb = chuckObj.AddComponent<Rigidbody>();
 
+        if (_finished)
+        {
+            rb.AddForce(10f * pushAway);
+        }
+
+        StartCoroutine(DestroyAfterSeconds(chuckObj, 3.5f));
+    }
+
+    IEnumerator DestroyAfterSeconds(GameObject go, float fSecs)
+    {
+        yield return new WaitForSeconds(fSecs);
+
+        GameObject.Destroy(go);
     }
 }

@@ -25,8 +25,8 @@ public class MeshPuncher : MonoBehaviour
 
     public void RandomPunch()
     {
-        var RandomRayOrigin = Random.onUnitSphere*8f;
-        Vector3 randomtarget = Random.onUnitSphere * 1f;
+        var RandomRayOrigin = transform.position + new Vector3(0,0,10f) + Random.onUnitSphere;
+        Vector3 randomtarget = transform.position+Random.onUnitSphere * 1f;
         Physics.Raycast(RandomRayOrigin, randomtarget - RandomRayOrigin, out var hitInfo, 20f);
 
         if (hitInfo.collider == this.GetComponent<MeshCollider>())

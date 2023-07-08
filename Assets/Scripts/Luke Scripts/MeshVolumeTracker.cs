@@ -30,7 +30,7 @@ public class MeshVolumeTracker : MonoBehaviour
 
             vol += SignedVolumeOfTriangle(p1, p2, p3);
         }
-        print(string.Format("Volume now {0:0.00}", vol));
+        print(string.Format("Relative volume now {0:0.00}", vol/initialVolume));
         Volume = vol;
         return vol;
     }
