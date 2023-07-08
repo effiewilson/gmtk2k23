@@ -62,7 +62,7 @@ public class MeshPuncher : MonoBehaviour
     }
 
 
-    void PunchMesh(Vector3 impact, Vector3 hitNormal, float radius)
+    public void PunchMesh(Vector3 impact, Vector3 hitNormal, float radius)
     {
         punchFlare.GetComponent<ParticleSystem>().Stop();
         if (punchFlare != null)
