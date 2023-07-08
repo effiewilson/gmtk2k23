@@ -58,10 +58,15 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Luke Scripts\Triangle.cs" />
     <Compile Include="Assets\Scripts\Charge Display.cs" />
     <Compile Include="Assets\Main Controls.cs" />
     <Compile Include="Assets\Scripts\David.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\Luke Scripts\MeshPuncher.cs" />
+    <Compile Include="Assets\Scripts\Luke Scripts\DragForce.cs" />
+    <Compile Include="Assets\Scripts\Luke Scripts\MeshCutter.cs" />
+    <Compile Include="Assets\Scripts\Luke Scripts\MeshSlice.cs" />
     <Compile Include="Assets\Scripts\Sculptor.cs" />
   </ItemGroup>
   <ItemGroup>
