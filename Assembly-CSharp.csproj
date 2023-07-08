@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Luke Scripts\MeshCutter.cs" />
     <Compile Include="Assets\Scripts\Luke Scripts\MeshSlice.cs" />
     <Compile Include="Assets\Scripts\Sculptor.cs" />
+    <Compile Include="Assets\Scripts\Luke Scripts\TwistForce.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
