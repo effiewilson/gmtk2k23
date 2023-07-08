@@ -18,6 +18,8 @@ namespace DefaultNamespace
         public float maxTime = 5f;
 
         public float angleRange = 20f;
+
+        public SculptorDestination destination;
         private void Update()
         {
             DrawStraightLine(transform.position, target.transform.position);
@@ -27,17 +29,15 @@ namespace DefaultNamespace
                 Relocate();
                 _timer = 0;
             }
+            
+            
+            
         }
 
         // [Button]
         public void Relocate()
         {
-            // Vector3 oldRota?
-            
-            // Quaternion.
-            // parent.transform.rotation = Quaternion.Euler(new Vector3(parent.transform.rotation.x, Random.rotation.y, parent.transform.rotation.z));
-            parent.transform.rotation = Quaternion.Euler(new Vector3(Random.Range(-angleRange,angleRange), Random.Range(0,360), 0));
-            // parent.transform.rotation = new Vector3(parent.transform.rotation.x, parent.transform.rotation.y, parent.transform.rotation.z));
+            // parent.transform.rotation = Quaternion.Euler(new Vector3(Random.Range(-angleRange,angleRange), Random.Range(0,360), 0));
         }
         
         public void DrawStraightLine(Vector3 sp, Vector3 ep)
