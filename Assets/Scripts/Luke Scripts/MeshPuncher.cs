@@ -91,5 +91,6 @@ public class MeshPuncher : MonoBehaviour
         _mesh = targetMesh;
 
         GetComponent<MeshCollider>().sharedMesh = _mesh;
+        GetComponent<MeshVolumeTracker>().CalculateVolume(_mesh);
     }
 }

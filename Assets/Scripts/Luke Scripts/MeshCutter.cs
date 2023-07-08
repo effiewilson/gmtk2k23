@@ -6,11 +6,36 @@ using UnityEngine;
 public class CuttableMesh : MonoBehaviour
 {
     private Mesh _mesh;
-    public float Volume { get; private set; }
+    public float SmashFraction = 0.5f;
+
+    private bool _finished = false;
+
+    private MeshVolumeTracker volume;
+
     // Start is called before the first frame update
     void Start()
     {
         this._mesh = GetComponent<MeshFilter>().mesh;
+        this.volume = GetComponent<MeshVolumeTracker>();
+    }
+
+    private void Update()
+    {
+        if (volume.FractionalVolume < SmashFraction)
+        {
+            SmashRemains();
+        }
+    }
+
+    private void SmashRemains()
+    {
+        _finished = true;
+        for (int i = 0; i < 4; i++)
+        {
+            Vector3 randomOffset = transform.position + new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
+            Vector3 randomOrientation = new Vector3(Random.Range(-20, 20f), Random.Range(-60, 60f), Random.Range(-120, 120));
+            CutMesh(new Plane(randomOrientation, randomOffset), randomOffset);
+        }
     }
 
     public void RandomCut()
@@ -220,57 +245,41 @@ public class CuttableMesh : MonoBehaviour
             print(string.Format("Kept A"));
         }
         dirPush.Normalize();
-        
-        //This mesh
-        this._mesh = keep;
-        GetComponent<MeshFilter>().mesh = this._mesh;
-        GetComponent<MeshCollider>().sharedMesh = this._mesh;
-        RecalculateVolume(this._mesh);
-        
+
+        if (!_finished)
+        {
+            //This mesh
+            this._mesh = keep;
+            GetComponent<MeshFilter>().mesh = this._mesh;
+            GetComponent<MeshCollider>().sharedMesh = this._mesh;
+            volume.CalculateVolume(this._mesh);
+        }
+        else
+        {
+            MakeDiscardMesh(keep, -dirPush);
+        }
+        MakeDiscardMesh(chuck, dirPush);
+    }
+
+    private void MakeDiscardMesh(Mesh mesh, Vector3 pushAway)
+    {
         //The discarded mesh
         GameObject chuckObj = new GameObject("Superfluous Material");
 
         chuckObj.transform.position = transform.position;
         chuckObj.transform.rotation = transform.rotation;
         chuckObj.transform.localScale = transform.localScale;
-        Vector3 pushOffset = chuckObj.transform.InverseTransformDirection(0.1f*dirPush);
+        Vector3 pushOffset = chuckObj.transform.InverseTransformDirection(0.1f * pushAway);
 
         chuckObj.transform.position -= pushOffset;
 
         var filter = chuckObj.AddComponent<MeshFilter>();
         var renderer = chuckObj.AddComponent<MeshRenderer>();
         renderer.material = this.GetComponent<MeshRenderer>().material;
-        filter.mesh = chuck;
+        filter.mesh = mesh;
         var collider = chuckObj.AddComponent<MeshCollider>();
         collider.convex = true;
         var rb = chuckObj.AddComponent<Rigidbody>();
 
-    }
-
-    private void RecalculateVolume(Mesh mesh)
-    {
-        float vol = 0;
-
-        for (int n = 0; n < mesh.triangles.Length; n += 3)
-        {
-            Vector3 p1 = mesh.vertices[mesh.triangles[n]];
-            Vector3 p2 = mesh.vertices[mesh.triangles[n + 1]];
-            Vector3 p3 = mesh.vertices[mesh.triangles[n + 2]];
-
-            vol += SignedVolumeOfTriangle(p1, p2, p3);
-        }
-        print(string.Format("Volume now {0:0.00}", vol));
-        this.Volume = vol;
-    }
-
-    private static float SignedVolumeOfTriangle(Vector3 p1, Vector3 p2, Vector3 p3)
-    {
-        var v321 = p3.x * p2.y * p1.z;
-        var v231 = p2.x * p3.y * p1.z;
-        var v312 = p3.x * p1.y * p2.z;
-        var v132 = p1.x * p3.y * p2.z;
-        var v213 = p2.x * p1.y * p3.z;
-        var v123 = p1.x * p2.y * p3.z;
-        return (1.0f / 6.0f) * (-v321 + v231 + v312 - v132 - v213 + v123);
     }
 }
