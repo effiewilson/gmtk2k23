@@ -18,6 +18,8 @@ namespace DefaultNamespace
         public float maxTime = 5f;
 
         public float angleRange = 20f;
+
+        public SculptorDestination destination;
         private void Update()
         {
             DrawStraightLine(transform.position, target.transform.position);
@@ -27,6 +29,9 @@ namespace DefaultNamespace
                 Relocate();
                 _timer = 0;
             }
+            
+            
+            
         }
 
         // [Button]

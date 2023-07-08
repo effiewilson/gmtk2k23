@@ -14,7 +14,7 @@ namespace DefaultNamespace
         public float moveSpeed = 5f;
         private Vector2 _movement;
 
-        public Rigidbody rotationParent;
+        // public Rigidbody rotationParent;
         public GameObject pivotObject;
         
         void Awake()
