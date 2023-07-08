@@ -38,6 +38,28 @@
                 },
                 {
                     "name": "",
+                    "id": "1f437a1a-113b-408a-a9dc-e50aeda2d8bf",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e16d3a30-d4b7-41a9-9cbf-1318cdebe7d9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "02b09f96-39ac-46c2-83b5-baf8d9bc4ccc",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
