@@ -12,8 +12,6 @@ namespace DefaultNamespace
         private void Update()
         {
             DrawStraightLine(transform.position, target.transform.position);
-            // lineRenderer.Set
-            // lineRenderer.po
         }
 
         private void OnDisable()
