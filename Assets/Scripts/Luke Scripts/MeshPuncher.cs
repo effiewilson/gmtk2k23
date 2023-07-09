@@ -64,6 +64,8 @@ public class MeshPuncher : MonoBehaviour
 
     public void PunchMesh(Vector3 impact, Vector3 hitNormal, float radius)
     {
+        var handler = this.GetComponent<CutHandler>();
+        handler?.AddDamage(0.02f);
         punchFlare.GetComponent<ParticleSystem>().Stop();
         if (punchFlare != null)
         {
