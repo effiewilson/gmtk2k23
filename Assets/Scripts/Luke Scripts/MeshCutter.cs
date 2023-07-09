@@ -12,6 +12,8 @@ public class CuttableMesh : MonoBehaviour
 
     private MeshVolumeTracker volume;
 
+    public CutHandler alsoCheck;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,7 @@ public class CuttableMesh : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         CutMesh(plane, position);
+        alsoCheck?.TestAgainstPlane(position, plane);
     }
 
     private void DrawPlane(Vector3 position, Vector3 normal, Color color)
@@ -85,10 +88,16 @@ public class CuttableMesh : MonoBehaviour
 
     public void CutMesh(Plane cut, Vector3 planeCentre)
     {
+        var rpp0 = planeCentre;
+        var rpp1 = RandomPointOnPlane(planeCentre, cut.normal, 5f);
+        var rpp2 = RandomPointOnPlane(planeCentre, cut.normal, 5f);
+
+        alsoCheck?.TestAgainstPlane(rpp0, rpp1, rpp2);
+
         //Transform cut plane into object coordinates!
-        Vector3 xp1 = transform.InverseTransformPoint(planeCentre);
-        Vector3 xp2 = transform.InverseTransformPoint(RandomPointOnPlane(planeCentre, cut.normal, 5f));
-        Vector3 xp3 = transform.InverseTransformPoint(RandomPointOnPlane(planeCentre, cut.normal, 5f));
+        Vector3 xp1 = transform.InverseTransformPoint(rpp0);
+        Vector3 xp2 = transform.InverseTransformPoint(rpp1);
+        Vector3 xp3 = transform.InverseTransformPoint(rpp2);
 
         cut = new Plane(xp1, xp2, xp3);
 

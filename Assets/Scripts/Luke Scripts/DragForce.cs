@@ -25,6 +25,11 @@ public class DragForce : MonoBehaviour
             Vector3 currentPosition = Input.mousePosition;
             var force = camera.transform.TransformPoint(currentPosition) - camera.transform.TransformPoint(startPos);
 
+            float mag = force.magnitude;
+            float rootmag = Mathf.Sqrt(mag);
+            //print(string.Format("Magnitude:: {0:0.0},      sqrt:: {1:0.0}", mag, rootmag));
+            force *= rootmag/(mag+1);
+
             force*=forceMult;
      
             var TransformedCentreOffset = camera.transform.TransformDirection(centreOffset);
