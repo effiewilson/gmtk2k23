@@ -118,12 +118,12 @@ namespace DefaultNamespace
             _charging = false;
             if (!_jumping)
             {
-                _jumping = true;
-                jumpSequence = DOTween.Sequence();
-                jumpSequence.Append(rb.DOJump(transform.position, 3, 1, 1f))
-                    .Join(transform.DORotate(transform.rotation.eulerAngles + new Vector3(0, _charge, 0), 1f))
-                    .OnComplete(() =>
-                        FinishJump());
+                // _jumping = true;
+                // jumpSequence = DOTween.Sequence();
+                // jumpSequence.Append(rb.DOJump(transform.position, 3, 1, 1f))
+                    // .Join(transform.DORotate(transform.rotation.eulerAngles + new Vector3(0, _charge, 0), 1f))
+                    // .OnComplete(() =>
+                        // FinishJump());
             }
 
 
