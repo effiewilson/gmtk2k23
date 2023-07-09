@@ -20,11 +20,11 @@ public class EndLevel : MonoBehaviour
     {
         string scoreString1 = string.Format("{0}% of you was cut off by this Renaissance piss artist.", (int)(damageLevel * 100));
         string scoreString2;
-        if (damageLevel > 0.6)
+        if (damageLevel > 0.5)
         {
             scoreString2 = "expensive gravel";
         }
-        else if(damageLevel > 0.5)
+        else if(damageLevel > 0.4)
         {
                 scoreString2 = "an upmarket rockery";
         }
