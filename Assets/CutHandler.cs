@@ -5,9 +5,13 @@ using UnityEngine;
 public class CutHandler : MonoBehaviour
 {
     public float DamageLevel = 0;
-    void Start()
+
+    void Update()
     {
-        
+        if (transform.parent == null && GetComponent<Rigidbody>() == null)
+        {
+            gameObject.AddComponent<Rigidbody>();
+        }
     }
 
     public void AddDamage(float dmg)
