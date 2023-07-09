@@ -42,6 +42,7 @@ namespace DefaultNamespace
             if (statueTarget == null)
             {
                 transform.LookAt(sculptureHypocentre.transform, Vector3.up);
+                return;
             }
 
 
