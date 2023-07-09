@@ -39,7 +39,11 @@ namespace DefaultNamespace
 
         private void FixedUpdate()
         {
-
+            if (statueTarget == null)
+            {
+                transform.LookAt(sculptureHypocentre.transform, Vector3.up);
+                return;
+            }
             //If attacking, all we need to know is that the telegraphs are on and the timer is running.
             if (_chiselling || _slicing)
             {
@@ -104,7 +108,7 @@ namespace DefaultNamespace
                     lr.SetPosition(0, _chiselRay.origin);
                     lr.SetPosition(1, _chiselRay.origin+_chiselRay.direction*15f);
                     chiselTelegraph.SetActive(true);
-                    transform.LookAt(statueTarget, Vector3.up);
+                    transform.LookAt(new Vector3(statueTarget.position.x, 0, statueTarget.position.z), Vector3.up);
                 }
                 if (_slicing)
                 {

@@ -91,7 +91,7 @@ public class CuttableMesh : MonoBehaviour
         var rpp1 = RandomPointOnPlane(planeCentre, cut.normal, 5f);
         var rpp2 = RandomPointOnPlane(planeCentre, cut.normal, 5f);
 
-        alsoCheck?.TestAgainstPlane3(rpp0, rpp1, rpp2);
+        if(!_finished) alsoCheck?.TestAgainstPlane3(rpp0, rpp1, rpp2);
 
         //Transform cut plane into object coordinates!
         Vector3 xp1 = transform.InverseTransformPoint(rpp0);

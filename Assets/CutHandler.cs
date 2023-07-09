@@ -28,7 +28,7 @@ public class CutHandler : MonoBehaviour
 
         int total = 0;
 
-        for (int n = 0; n < mesh.vertices.Length; n++)
+        for (int n = 0; n < mesh.vertices.Length; n+=10)
         {
             if (cut.GetSide(mesh.vertices[n]))
             {
@@ -37,7 +37,7 @@ public class CutHandler : MonoBehaviour
         }
         print(string.Format("{0} of {1} vertices on the same side", total, mesh.vertices.Length));
 
-        float sideFrac = total * 1f / mesh.vertices.Length;
+        float sideFrac = total*10f / mesh.vertices.Length;
 
         DamageLevel += Mathf.Min(sideFrac, 1-sideFrac);
     }
