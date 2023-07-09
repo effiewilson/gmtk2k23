@@ -9,11 +9,11 @@ public class MeshVolumeTracker : MonoBehaviour
     public float FractionalVolume { 
         get
         {
-            return Volume/initialVolume;
+            return Mathf.Min(1, Volume/initialVolume);
         }
     }
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         initialVolume = CalculateVolume(GetComponent<MeshFilter>().mesh);
     }
