@@ -53,6 +53,7 @@
      <Compile Include="Assets\Main Controls.cs" />
      <Compile Include="Assets\Scripts\David.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+     <Compile Include="Assets\SpinnyCam.cs" />
      <Compile Include="Assets\Scripts\Luke Scripts\MeshPuncher.cs" />
      <Compile Include="Assets\Scripts\ButtonLoader.cs" />
      <Compile Include="Assets\Scripts\Luke Scripts\DragForce.cs" />
@@ -92,6 +93,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <Folder Include="Assets\TextMesh Pro\Shaders" />
      <Folder Include="Assets\Resources" />
+     <Folder Include="Assets\Models\head" />
      <Folder Include="Assets\TextMesh Pro\Resources\Style Sheets" />
      <Folder Include="Assets\TutorialInfo\Scripts" />
      <Folder Include="Assets\TextMesh Pro\Fonts" />
@@ -99,6 +101,7 @@
      <Folder Include="Assets\TutorialInfo" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <Folder Include="Assets\Models\Dino\Materials" />
+     <Folder Include="Assets\Models\dog" />
      <Folder Include="Assets\Scenes" />
      <Folder Include="Assets\Models\Prefabs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
