@@ -17,11 +17,7 @@ namespace DefaultNamespace
 
         public void PickRandomDestination()
         {
-            Vector3 movement = new Vector3(0, 1, 0);
-
-            
-            
-            transform.RotateAround(pivotObject.transform.position, movement, Random.Range(0,360));
+            transform.RotateAround(pivotObject.transform.position, Vector3.up, Random.Range(0,360));
             transform.LookAt(pivotObject.transform);
         }
     }
