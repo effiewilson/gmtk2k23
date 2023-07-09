@@ -4,22 +4,53 @@ using UnityEngine;
 
 public class CutHandler : MonoBehaviour
 {
-    private Mesh _mesh;
     public float DamageLevel = 0;
     void Start()
     {
-        this._mesh = GetComponent<MeshFilter>().mesh;
+        
     }
 
+    public void AddDamage(float dmg)
+    {
+        this.DamageLevel += dmg;
+    }
+
+    public void TestAgainstPlane3(Vector3 point1, Vector3 point2, Vector3 point3)
+    {
+        //Transform cut plane into object coordinates!
+        Vector3 xp1 = transform.InverseTransformPoint(point1);
+        Vector3 xp2 = transform.InverseTransformPoint(point2);
+        Vector3 xp3 = transform.InverseTransformPoint(point3);
+
+        Mesh mesh = GetComponent<MeshCollider>().sharedMesh;
+
+        var cut = new Plane(xp1, xp2, xp3);
+
+        int total = 0;
+
+        for (int n = 0; n < mesh.vertices.Length; n++)
+        {
+            if (cut.GetSide(mesh.vertices[n]))
+            {
+                total++;
+            }
+        }
+        print(string.Format("{0} of {1} vertices on the same side", total, mesh.vertices.Length));
+
+        float sideFrac = total * 1f / mesh.vertices.Length;
+
+        DamageLevel += Mathf.Min(sideFrac, 1-sideFrac);
+    }
+    /*
     public void TestAgainstPlane(Vector3 p1, Vector3 p2, Vector3 p3)
     {
         var q1 = transform.TransformPoint(p1);
         var q2 = transform.TransformPoint(p2);
         var q3 = transform.TransformPoint(p3);
 
-        TestAgainstPlane(q1, new Plane(q3, q2, q1));
+        TestAgainstPlane(p1, new Plane(p1, p2, p3));
     }
-
+    
     public void TestAgainstPlane(Vector3 position, Plane plane)
     {
         DamageLevel += GetCutFraction(plane);
@@ -28,17 +59,17 @@ public class CutHandler : MonoBehaviour
     private float GetCutFraction(Plane plane)
     {
         int total = 0;
+
+
         foreach(var vert in _mesh.vertices)
         {
-            if (plane.GetSide(vert))
+            var vertex = transform.TransformPoint(vert);
+            if (plane.GetSide(vertex))
             {
                 total++;
             }
         }
         print(string.Format("{0} of {1} cut", total, _mesh.vertices.Length));
-
-        print(string.Format("{0} of {1} cut", total, _mesh.vertices.Length));
-
         float frac = total * 1f / _mesh.vertices.Length;
         return frac;
     }
@@ -48,8 +79,8 @@ public class CutHandler : MonoBehaviour
         for (int n = 0; n < _mesh.triangles.Length; n += 3)
         {
             var p1 = _mesh.vertices[_mesh.triangles[n]];
-            var p2 = _mesh.vertices[_mesh.triangles[n]];
-            var p3 = _mesh.vertices[_mesh.triangles[n]];
+            var p2 = _mesh.vertices[_mesh.triangles[n+1]];
+            var p3 = _mesh.vertices[_mesh.triangles[n+2]];
 
             bool noSplit = plane.GetSide(p1) == plane.GetSide(p2) && plane.GetSide(p2) == plane.GetSide(p3);
 
@@ -62,5 +93,5 @@ public class CutHandler : MonoBehaviour
         }
         hit = Vector3.zero;
         return false;
-    }
+    }*/
 }

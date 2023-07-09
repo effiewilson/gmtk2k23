@@ -64,6 +64,8 @@ public class MeshPuncher : MonoBehaviour
 
     public void PunchMesh(Vector3 impact, Vector3 hitNormal, float radius)
     {
+        var handler = this.GetComponent<CutHandler>();
+        handler?.AddDamage(0.02f);
         punchFlare.GetComponent<ParticleSystem>().Stop();
         if (punchFlare != null)
         {
@@ -78,10 +80,10 @@ public class MeshPuncher : MonoBehaviour
 
         for (int n=0; n < verts.Length; n++)
         {
-            var vert = transform.TransformPoint(verts[n])-0.5f*radius*transform.TransformDirection(hitNormal);
+            var vert = transform.TransformPoint(verts[n])-radius*transform.TransformDirection(hitNormal);
             if ((vert - impact).sqrMagnitude < radius * radius)
             {
-                vert = impact + radius * (vert-impact).normalized;
+                vert = impact + 0.5f*radius * (vert-impact).normalized;
                 verts[n] = transform.InverseTransformPoint(vert);
             }
         }

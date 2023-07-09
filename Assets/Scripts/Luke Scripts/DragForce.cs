@@ -26,6 +26,8 @@ public class DragForce : MonoBehaviour
             var force = camera.transform.TransformPoint(currentPosition) - camera.transform.TransformPoint(startPos);
 
             float mag = force.magnitude;
+            mag /= Camera.current.pixelWidth;
+            mag *= 0.1f;
             float rootmag = Mathf.Sqrt(mag);
             //print(string.Format("Magnitude:: {0:0.0},      sqrt:: {1:0.0}", mag, rootmag));
             force *= rootmag/(mag+1);
@@ -65,8 +67,11 @@ public class DragForce : MonoBehaviour
         _dragging = true;
         startPos = Input.mousePosition;
         centreOffset = startPos - rt.position;
-        centreOffset.x /= 50f;
-        centreOffset.y /= 50f;
+        centreOffset.x /= Camera.current.pixelWidth;
+        centreOffset.y /= Camera.current.pixelWidth;
+        centreOffset.x *= 60f;
+        centreOffset.y *= 60f;
+
         //print(string.Format("Offset from centre: ({0:0.0}, {1:0.0}, {2:0.0}).", centreOffset.x, centreOffset.y, centreOffset.z));
     }
 }

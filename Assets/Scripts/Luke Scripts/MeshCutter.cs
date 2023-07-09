@@ -59,7 +59,6 @@ public class CuttableMesh : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         CutMesh(plane, position);
-        alsoCheck?.TestAgainstPlane(position, plane);
     }
 
     private void DrawPlane(Vector3 position, Vector3 normal, Color color)
@@ -92,7 +91,7 @@ public class CuttableMesh : MonoBehaviour
         var rpp1 = RandomPointOnPlane(planeCentre, cut.normal, 5f);
         var rpp2 = RandomPointOnPlane(planeCentre, cut.normal, 5f);
 
-        alsoCheck?.TestAgainstPlane(rpp0, rpp1, rpp2);
+        alsoCheck?.TestAgainstPlane3(rpp0, rpp1, rpp2);
 
         //Transform cut plane into object coordinates!
         Vector3 xp1 = transform.InverseTransformPoint(rpp0);
@@ -100,7 +99,6 @@ public class CuttableMesh : MonoBehaviour
         Vector3 xp3 = transform.InverseTransformPoint(rpp2);
 
         cut = new Plane(xp1, xp2, xp3);
-
 
         MeshSlice leftSlice = new(cut);
         MeshSlice rightSlice = new(cut);
