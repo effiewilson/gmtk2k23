@@ -9,6 +9,9 @@ public class MeshPuncher : MonoBehaviour
     public Transform punchFlare;
     public float radius = 0.2f;
     private Mesh _mesh;
+
+    public AudioSource punchClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,8 +67,12 @@ public class MeshPuncher : MonoBehaviour
 
     public void PunchMesh(Vector3 impact, Vector3 hitNormal, float radius)
     {
+
+
         var handler = this.GetComponent<CutHandler>();
         handler?.AddDamage(0.02f);
+        punchClip?.Play();
+        
         punchFlare.GetComponent<ParticleSystem>().Stop();
         if (punchFlare != null)
         {

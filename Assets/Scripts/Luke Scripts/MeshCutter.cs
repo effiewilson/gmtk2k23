@@ -14,6 +14,9 @@ public class CuttableMesh : MonoBehaviour
 
     public CutHandler alsoCheck;
 
+    public AudioSource cutClip;
+    public AudioSource missClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -237,6 +240,15 @@ public class CuttableMesh : MonoBehaviour
 
         Vector3 dirPush;
         Mesh keep, chuck;
+
+        if(A.VertexCount>0 && B.VertexCount > 0)
+        {
+            cutClip?.Play();
+        }
+        else
+        {
+            missClip?.Play();
+        }
 
         if (A.VertexCount > B.VertexCount)
         {
