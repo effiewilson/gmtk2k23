@@ -30,10 +30,11 @@ public class DragForce : MonoBehaviour
             mag *= 0.1f;
             float rootmag = Mathf.Sqrt(mag);
             //print(string.Format("Magnitude:: {0:0.0},      sqrt:: {1:0.0}", mag, rootmag));
-            force *= rootmag/(mag+1);
+            force *= Mathf.Clamp(rootmag/(mag+1), 0f,100f);
 
             force*=forceMult;
      
+
             var TransformedCentreOffset = camera.transform.TransformDirection(centreOffset);
             //print(string.Format("TransformedCentreOffset :({0:0.0},{1:0.0},{2:0.0})", TransformedCentreOffset.x, TransformedCentreOffset.y, TransformedCentreOffset.z));
             var offset = targetBody.transform.position + TransformedCentreOffset;
