@@ -10,7 +10,7 @@ public class CutHandler : MonoBehaviour
         
     }
 
-    void AddDamage(float dmg)
+    public void AddDamage(float dmg)
     {
         this.DamageLevel += dmg;
     }
