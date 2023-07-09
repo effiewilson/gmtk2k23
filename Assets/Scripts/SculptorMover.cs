@@ -42,9 +42,8 @@ namespace DefaultNamespace
             if (statueTarget == null)
             {
                 transform.LookAt(sculptureHypocentre.transform, Vector3.up);
+                return;
             }
-
-
             //If attacking, all we need to know is that the telegraphs are on and the timer is running.
             if (_chiselling || _slicing)
             {
