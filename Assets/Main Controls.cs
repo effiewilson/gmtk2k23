@@ -44,6 +44,15 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Destroy"",
+                    ""type"": ""Button"",
+                    ""id"": ""736bd3c9-28f5-4e6e-ba41-ebf39b5143f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -211,6 +220,28 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ce82696-db24-4561-8545-549c297cfe05"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Destroy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be4dfed8-20d3-471e-a232-5531927ec67c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Destroy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -221,6 +252,7 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
         m_DefaultMap = asset.FindActionMap("Default Map", throwIfNotFound: true);
         m_DefaultMap_Confirm = m_DefaultMap.FindAction("Confirm", throwIfNotFound: true);
         m_DefaultMap_Move = m_DefaultMap.FindAction("Move", throwIfNotFound: true);
+        m_DefaultMap_Destroy = m_DefaultMap.FindAction("Destroy", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,12 +316,14 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
     private List<IDefaultMapActions> m_DefaultMapActionsCallbackInterfaces = new List<IDefaultMapActions>();
     private readonly InputAction m_DefaultMap_Confirm;
     private readonly InputAction m_DefaultMap_Move;
+    private readonly InputAction m_DefaultMap_Destroy;
     public struct DefaultMapActions
     {
         private @MainControls m_Wrapper;
         public DefaultMapActions(@MainControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Confirm => m_Wrapper.m_DefaultMap_Confirm;
         public InputAction @Move => m_Wrapper.m_DefaultMap_Move;
+        public InputAction @Destroy => m_Wrapper.m_DefaultMap_Destroy;
         public InputActionMap Get() { return m_Wrapper.m_DefaultMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -305,6 +339,9 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Destroy.started += instance.OnDestroy;
+            @Destroy.performed += instance.OnDestroy;
+            @Destroy.canceled += instance.OnDestroy;
         }
 
         private void UnregisterCallbacks(IDefaultMapActions instance)
@@ -315,6 +352,9 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Destroy.started -= instance.OnDestroy;
+            @Destroy.performed -= instance.OnDestroy;
+            @Destroy.canceled -= instance.OnDestroy;
         }
 
         public void RemoveCallbacks(IDefaultMapActions instance)
@@ -336,5 +376,6 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
     {
         void OnConfirm(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnDestroy(InputAction.CallbackContext context);
     }
 }

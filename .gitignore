@@ -3,4 +3,5 @@
 /Logs/*
 /obj/Debug/*
 /Temp/*
-/UserSettings/*
+Assembly-CSharp.csproj
+/UserSettings/
