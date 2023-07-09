@@ -8,6 +8,8 @@ public class CuttableMesh : MonoBehaviour
     private Mesh _mesh;
     public float SmashFraction = 0.75f;
 
+    public EndLevel endLevel;
+
     private bool _finished = false;
 
     private MeshVolumeTracker volume;
@@ -35,6 +37,7 @@ public class CuttableMesh : MonoBehaviour
     private IEnumerator SmashRemains()
     {
         _finished = true;
+        float dmg = alsoCheck.DamageLevel;
         for (int i = 0; i < 3; i++)
         {
             Vector3 randomOffset = transform.position + new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
@@ -42,6 +45,7 @@ public class CuttableMesh : MonoBehaviour
             CutMesh(new Plane(randomOrientation, randomOffset), randomOffset);
             yield return new WaitForFixedUpdate();
         }
+        endLevel.EndLevelNow(dmg);
     }
 
     public void RandomCut()
